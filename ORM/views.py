@@ -25,6 +25,9 @@ class GetCompanyData(APIView):
         sales_object = Salesforce.objects.all()
         saless = Salesforce.objects.filter(name__startwith ="J")| Salesforce.objects.filter(name__endwith='e')
         queryset = Salesforce.objects.filter(Q(name__startwith='J')Q(name__endwith='e'))
+        # NOT operation ORM.
+        query = Company.objects.filter(~Q(role="Software Developer"))
+        query_by_id = Company.objects.filter(~Q(id__lt=5))
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
