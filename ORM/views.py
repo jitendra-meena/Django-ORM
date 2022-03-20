@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Salesforce, Company
 from .serializer import GetDataSerializer,GetCompanyDataSerializer
+from django.db.models import Q
 
 # Get Data From SalesForces Model
 class GetData(APIView):
@@ -23,6 +24,7 @@ class GetCompanyData(APIView):
         list_obj = Company.objects.values('id')
         sales_object = Salesforce.objects.all()
         saless = Salesforce.objects.filter(name__startwith ="J")| Salesforce.objects.filter(name__endwith='e')
+        queryset = Salesforce.objects.filter(Q(name__startwith='J')Q(name__endwith='e'))
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
