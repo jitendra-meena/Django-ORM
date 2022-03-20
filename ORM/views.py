@@ -5,7 +5,7 @@ from rest_framework import status
 from .models import Salesforce, Company
 from .serializer import GetDataSerializer,GetCompanyDataSerializer
 from django.db.models import Q
-
+from django.db.models import Subquery
 # Get Data From SalesForces Model
 class GetData(APIView):
     def get(self,request):
@@ -33,6 +33,10 @@ class GetCompanyData(APIView):
         # select some fields only in a queryset
         query_by_only = Company.object.filter(is_developer=True).values('name')
         query_by_only = Company.object.filter(is_developer=True).only('name')
+
+        # SubQuery in ORM
+        query_by_sub= Company.objects.filter(Salesforce__id__in =Subquery(sales_object('id')))
+        
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
