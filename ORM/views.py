@@ -22,6 +22,7 @@ class GetCompanyData(APIView):
         # sales = Company.objects.values('id')
         list_obj = Company.objects.values('id')
         sales_object = Salesforce.objects.all()
+        saless = Salesforce.objects.filter(name__startwith ="J")| Salesforce.objects.filter(name__endwith='e')
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
