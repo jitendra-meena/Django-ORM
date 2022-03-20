@@ -29,6 +29,9 @@ class GetCompanyData(APIView):
         query = Company.objects.filter(~Q(role="Software Developer"))
         query_by_id = Company.objects.filter(~Q(id__lt=5))
         query_by_exclude =  Comapny.objects.filter(name__startwith="P").exclude(is_developer=False)
+
+        # select some fields only in a queryset
+        query_by_only = Company.object.filter(is_developer=True).values('name')
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
