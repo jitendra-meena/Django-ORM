@@ -20,7 +20,6 @@ class GetCompanyData(APIView):
         sale_obj = Company.objects.filter(name__contains= 'Ji')
         get_sales = Company.objects.get(id =2)
         # sales = Company.objects.values('id')
-        # print(sales)
         list_obj = Company.objects.values('id')
         print(list_obj)
         serializer = GetCompanyDataSerializer(list_obj)
