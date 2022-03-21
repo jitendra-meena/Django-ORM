@@ -1,3 +1,4 @@
+from itertools import count
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -42,10 +43,11 @@ class GetCompanyData(APIView):
         #second largest record ORM 
         query_by_record =  Company.objects.order_by('-role')[1]
 
-
+        # Duplicate Records
+        duplicate_record = Company.objects.values('name').annotate(name_count=count('name').filter(name__gt=1))
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
-
+   
 
 
