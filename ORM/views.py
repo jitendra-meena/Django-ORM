@@ -25,7 +25,7 @@ class GetCompanyData(APIView):
         list_obj = Company.objects.values('id')
         sales_object = Salesforce.objects.all()
         saless = Salesforce.objects.filter(name__startwith ="J")| Salesforce.objects.filter(name__endwith='e')
-        queryset = Salesforce.objects.filter(Q(name__startwith='J')Q(name__endwith='e'))
+        # queryset = Salesforce.objects.filter(Q(name__startwith='J')Q(name__endwith='e'))
         # NOT operation ORM.
         query = Company.objects.filter(~Q(role="Software Developer"))
         query_by_id = Company.objects.filter(~Q(id__lt=5))
@@ -45,6 +45,8 @@ class GetCompanyData(APIView):
 
         # Duplicate Records
         duplicate_record = Company.objects.values('name').annotate(name_count=count('name').filter(name__gt=1))
+        
+        
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
