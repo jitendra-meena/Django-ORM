@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 import uuid
 
@@ -19,3 +20,11 @@ class Company(models.Model):
         return f'{self.name} role -{self.role}'
 
         
+class Activity(models.Model):
+    company = models.ForeignKey(Company,on_delete=models.CASCADE)
+    number_act = models.IntegerField(null =True)
+    activity_type = models.CharField(max_length=20)
+    current_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.activity_type
