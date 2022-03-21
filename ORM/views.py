@@ -38,7 +38,11 @@ class GetCompanyData(APIView):
         query_by_sub= Company.objects.filter(Salesforce__id__in =Subquery(sales_object('id')))
         
         #join operations ORM
-        
+
+        #second largest record ORM 
+        query_by_record =  Company.objects.order_by('-role')[1]
+
+
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
