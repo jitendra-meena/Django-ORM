@@ -37,6 +37,8 @@ class GetCompanyData(APIView):
         # SubQuery in ORM
         query_by_sub= Company.objects.filter(Salesforce__id__in =Subquery(sales_object('id')))
         
+        #join operations ORM
+        
         serializer = GetCompanyDataSerializer(list_obj)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
