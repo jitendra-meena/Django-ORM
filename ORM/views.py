@@ -47,7 +47,7 @@ class GetCompanyData(APIView):
         duplicate_record = Company.objects.values('name').annotate(name_count=count('name').filter(name__gt=1))
         
         
-        serializer = GetCompanyDataSerializer(list_obj)
+        serializer = GetCompanyDataSerializer(query_by_record)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
    
