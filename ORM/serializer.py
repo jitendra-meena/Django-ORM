@@ -1,3 +1,4 @@
+from dataclasses import fields
 from pyexpat import model
 from rest_framework import serializers
 from .models import Salesforce,Company
@@ -12,3 +13,8 @@ class GetCompanyDataSerializer(serializers.ModelSerializer):
     class Meta:
         model =Company
         fields = '__all__'
+
+class ActivityRecordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        exclude = ['current_date']        

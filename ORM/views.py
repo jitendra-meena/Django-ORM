@@ -3,8 +3,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Salesforce, Company
-from .serializer import GetDataSerializer,GetCompanyDataSerializer
+from .models import Activity, Salesforce, Company
+from .serializer import GetDataSerializer,GetCompanyDataSerializer,ActivityRecordSerializer
 from django.db.models import Q
 from django.db.models import Subquery
 # Get Data From SalesForces Model
@@ -51,5 +51,10 @@ class GetCompanyData(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
 
    
-
+class ActivityRecord(APIView):
+    
+    def get(self,request):
+        activity_obj = Activity.objects.all()
+        serializer = ActivityRecordSerializer(activity_obj,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
