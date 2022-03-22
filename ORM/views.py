@@ -53,8 +53,18 @@ class GetCompanyData(APIView):
    
 class ActivityRecord(APIView):
     
-    def get(self,request):
+    def get(self,request,id=None):
         activity_obj = Activity.objects.all()
         serializer = ActivityRecordSerializer(activity_obj,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+
+    def post(self,request,id):
+        data = request.data
+        comapny = Company.objects.get(id =id)
+        serializer = ActivityRecordSerializer(comapny,data=request.data)
+        print(serializer)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_404_NOT_FOUND)
 

@@ -19,6 +19,6 @@ from django.urls import path
 urlpatterns = [
     path('get_data',GetData.as_view(),name='get_data'),
     path('get_company_data',GetCompanyData.as_view(),name='get_company_data'),
-    path('activity/',ActivityRecord.as_view(),name='activity')
+    path('activity/<int:id>',ActivityRecord.as_view(),name='activity')
 ]   
 

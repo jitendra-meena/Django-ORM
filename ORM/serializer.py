@@ -1,7 +1,7 @@
 from dataclasses import fields
 from pyexpat import model
 from rest_framework import serializers
-from .models import Salesforce,Company
+from .models import Activity, Salesforce,Company
 
 class GetDataSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +17,5 @@ class GetCompanyDataSerializer(serializers.ModelSerializer):
 class ActivityRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = Activity
         exclude = ['current_date']        
