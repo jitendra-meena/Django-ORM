@@ -18,4 +18,4 @@ class ActivityRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Activity
-        exclude = ['current_date']        
+        exclude = ['company']        

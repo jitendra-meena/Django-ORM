@@ -60,11 +60,24 @@ class ActivityRecord(APIView):
 
     def post(self,request,id):
         data = request.data
-        comapny = Company.objects.get(id =id)
-        serializer = ActivityRecordSerializer(comapny,data=request.data)
+        company = Company.objects.get(id =id)
+        print(company)
+        serializer = ActivityRecordSerializer(company,data=request.data)
         print(serializer)
         if serializer.is_valid():
+            print("Yes")
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_404_NOT_FOUND)
+
+    def Put(self,request,id):
+        data = request.data
+        company = Company.objects.get(id =id)
+        serializer = ActivityRecordSerializer(company,data=request.data)
+        
+        if serializer.is_valid():
+            print("Yes")
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_404_NOT_FOUND)    
 
