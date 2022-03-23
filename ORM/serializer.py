@@ -18,4 +18,5 @@ class ActivityRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Activity
-        exclude = ['company']        
+        fields = "__all__"      
+
